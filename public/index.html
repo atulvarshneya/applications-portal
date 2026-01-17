@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Applications Portal</title>
+    <title>AI assistants for Marketing</title>
     <style>
         * {
             margin: 0;
@@ -26,9 +26,18 @@
         h1 {
             color: #4c1d95;
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 0.5rem;
             font-size: 2.5rem;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .subheading {
+            color: #6b21a8;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            font-weight: 400;
+            opacity: 0.9;
         }
 
         .loading {
@@ -125,6 +134,10 @@
                 font-size: 2rem;
             }
 
+            .subheading {
+                font-size: 1rem;
+            }
+
             body {
                 padding: 1rem;
             }
@@ -133,7 +146,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Applications Portal</h1>
+        <h1>AI assistants for Marketing</h1>
+        <p class="subheading">A collection of AI tools, designed to make life easier</p>
         <div id="loading" class="loading">Loading applications...</div>
         <div id="error" class="error" style="display: none;"></div>
         <div id="apps-grid" class="apps-grid"></div>
