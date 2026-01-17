@@ -3,32 +3,38 @@
     {
       "name": "GitHub",
       "url": "https://github.com",
-      "description": "Code hosting SaaS platform for version control and collaboration"
+      "description": "Code hosting SaaS platform for version control and collaboration",
+      "details": "GitHub is a code hosting platform for version control and collaboration. It allows you to manage your code and collaborate with others."
     },
     {
       "name": "Stack Overflow",
       "url": "https://stackoverflow.com",
-      "description": "Q&A platform for programmers"
+      "description": "Q&A platform for programmers",
+      "details": "Stack Overflow is a question and answer platform for programmers. It allows you to ask questions and get answers from other programmers."
     },
     {
       "name": "MDN Web Docs",
       "url": "https://developer.mozilla.org",
-      "description": "Resources for developers, by developers"
+      "description": "Resources for developers, by developers",
+      "details": "MDN Web Docs is a documentation platform for web developers. It provides documentation for web technologies such as HTML, CSS, and JavaScript."
     },
     {
       "name": "Google",
       "url": "https://www.google.com",
-      "description": "Search engine and technology company"
+      "description": "Search engine and technology company",
+      "details": "Google is a search engine and technology company. It provides a search engine and other services such as Gmail, Google Drive, and Google Maps."
     },
     {
       "name": "YouTube",
       "url": "https://www.youtube.com",
-      "description": "Video sharing platform"
+      "description": "Video sharing platform",
+      "details": "YouTube is a video sharing platform. It allows you to upload and share videos with others."
     },
     {
       "name": "NestJS",
       "url": "https://nestjs.com",
-      "description": "A progressive Node.js framework for building efficient applications"
+      "description": "A progressive Node.js framework for building efficient applications",
+      "details": "NestJS is a progressive Node.js framework for building efficient applications. It provides a framework for building web applications and APIs."
     }
   ]
 }

@@ -62,6 +62,7 @@
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
             margin-top: 2rem;
+            align-items: start;
         }
 
         .app-card {
@@ -69,14 +70,26 @@
             border-radius: 12px;
             padding: 1.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, height 0.3s ease;
             display: flex;
             flex-direction: column;
             color: inherit;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            height: 200px;
         }
 
-        .app-card:hover {
+        .app-card:hover:not(.expanded) {
             transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .app-card.expanded {
+            height: 400px;
+        }
+
+        .app-card.expanded:hover {
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
         }
 
@@ -103,6 +116,25 @@
             color: #e0e0e0;
         }
 
+        .app-details {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .app-card.expanded .app-details {
+            display: block;
+        }
+
+        .app-card.dark-tile .app-details {
+            color: #e0e0e0;
+            border-top-color: rgba(255, 255, 255, 0.2);
+        }
+
         .app-url {
             color: #667eea;
             font-size: 0.85rem;
@@ -111,6 +143,8 @@
             margin-top: auto;
             cursor: pointer;
             display: inline-block;
+            position: relative;
+            z-index: 10;
         }
 
         .app-card.dark-tile .app-url {
@@ -187,13 +221,36 @@
                     urlLink.rel = 'noopener noreferrer';
                     urlLink.textContent = app.url;
                     
+                    // Prevent URL click from triggering card expansion
+                    urlLink.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                    });
+                    
+                    const detailsDiv = document.createElement('div');
+                    detailsDiv.className = 'app-details';
+                    if (app.details) {
+                        detailsDiv.textContent = app.details;
+                    }
+                    
                     card.innerHTML = `
                         <div class="app-name">${escapeHtml(app.name)}</div>
                         <div class="app-description">${escapeHtml(app.description)}</div>
                     `;
                     
+                    card.appendChild(detailsDiv);
                     card.appendChild(urlLink);
+                    
                     gridEl.appendChild(card);
+                    
+                    // Add click handler for expand/collapse
+                    card.addEventListener('click', (e) => {
+                        // Don't expand if clicking on the URL link
+                        if (e.target === urlLink || urlLink.contains(e.target)) {
+                            return;
+                        }
+                        
+                        card.classList.toggle('expanded');
+                    });
                 });
             } catch (error) {
                 loadingEl.style.display = 'none';
