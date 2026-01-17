@@ -1,0 +1,34 @@
+{
+  "applications": [
+    {
+      "name": "GitHub",
+      "url": "https://github.com",
+      "description": "Code hosting platform for version control and collaboration"
+    },
+    {
+      "name": "Stack Overflow",
+      "url": "https://stackoverflow.com",
+      "description": "Q&A platform for programmers"
+    },
+    {
+      "name": "MDN Web Docs",
+      "url": "https://developer.mozilla.org",
+      "description": "Resources for developers, by developers"
+    },
+    {
+      "name": "Google",
+      "url": "https://www.google.com",
+      "description": "Search engine and technology company"
+    },
+    {
+      "name": "YouTube",
+      "url": "https://www.youtube.com",
+      "description": "Video sharing platform"
+    },
+    {
+      "name": "NestJS",
+      "url": "https://nestjs.com",
+      "description": "A progressive Node.js framework for building efficient applications"
+    }
+  ]
+}

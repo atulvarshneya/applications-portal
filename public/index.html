@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applications Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.2rem;
+            margin-top: 2rem;
+        }
+
+        .error {
+            text-align: center;
+            color: #ff6b6b;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .app-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .app-card:active {
+            transform: translateY(-2px);
+        }
+
+        .app-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .app-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            flex-grow: 1;
+            margin-bottom: 1rem;
+        }
+
+        .app-url {
+            color: #667eea;
+            font-size: 0.85rem;
+            text-decoration: none;
+            word-break: break-all;
+            margin-top: auto;
+        }
+
+        .app-url:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            body {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Applications Portal</h1>
+        <div id="loading" class="loading">Loading applications...</div>
+        <div id="error" class="error" style="display: none;"></div>
+        <div id="apps-grid" class="apps-grid"></div>
+    </div>
+
+    <script>
+        async function loadApplications() {
+            const loadingEl = document.getElementById('loading');
+            const errorEl = document.getElementById('error');
+            const gridEl = document.getElementById('apps-grid');
+
+            try {
+                const response = await fetch('/api/applications');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const applications = await response.json();
+                
+                loadingEl.style.display = 'none';
+                
+                if (applications.length === 0) {
+                    errorEl.textContent = 'No applications found in config.json';
+                    errorEl.style.display = 'block';
+                    return;
+                }
+
+                applications.forEach(app => {
+                    const card = document.createElement('a');
+                    card.className = 'app-card';
+                    card.href = app.url;
+                    card.target = '_blank';
+                    card.rel = 'noopener noreferrer';
+                    
+                    card.innerHTML = `
+                        <div class="app-name">${escapeHtml(app.name)}</div>
+                        <div class="app-description">${escapeHtml(app.description)}</div>
+                        <div class="app-url">${escapeHtml(app.url)}</div>
+                    `;
+                    
+                    gridEl.appendChild(card);
+                });
+            } catch (error) {
+                loadingEl.style.display = 'none';
+                errorEl.textContent = `Error loading applications: ${error.message}`;
+                errorEl.style.display = 'block';
+                console.error('Error:', error);
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Load applications when page loads
+        document.addEventListener('DOMContentLoaded', loadApplications);
+    </script>
+</body>
+</html>
