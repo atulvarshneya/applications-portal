@@ -70,20 +70,14 @@
             padding: 1.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            cursor: pointer;
             display: flex;
             flex-direction: column;
-            text-decoration: none;
             color: inherit;
         }
 
         .app-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .app-card:active {
-            transform: translateY(-2px);
         }
 
         .app-name {
@@ -115,6 +109,8 @@
             text-decoration: none;
             word-break: break-all;
             margin-top: auto;
+            cursor: pointer;
+            display: inline-block;
         }
 
         .app-card.dark-tile .app-url {
@@ -177,22 +173,26 @@
                 }
 
                 applications.forEach(app => {
-                    const card = document.createElement('a');
+                    const card = document.createElement('div');
                     card.className = 'app-card dark-tile';
-                    card.href = app.url;
-                    card.target = '_blank';
-                    card.rel = 'noopener noreferrer';
                     
                     // Assign a random darker color to each tile
                     const randomColor = generateRandomDarkColor();
                     card.style.background = randomColor;
                     
+                    const urlLink = document.createElement('a');
+                    urlLink.className = 'app-url';
+                    urlLink.href = app.url;
+                    urlLink.target = '_blank';
+                    urlLink.rel = 'noopener noreferrer';
+                    urlLink.textContent = app.url;
+                    
                     card.innerHTML = `
                         <div class="app-name">${escapeHtml(app.name)}</div>
                         <div class="app-description">${escapeHtml(app.description)}</div>
-                        <div class="app-url">${escapeHtml(app.url)}</div>
                     `;
                     
+                    card.appendChild(urlLink);
                     gridEl.appendChild(card);
                 });
             } catch (error) {
