@@ -13,7 +13,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%);
             min-height: 100vh;
             padding: 2rem;
         }
@@ -24,16 +24,16 @@
         }
 
         h1 {
-            color: white;
+            color: #4c1d95;
             text-align: center;
             margin-bottom: 2rem;
             font-size: 2.5rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .loading {
             text-align: center;
-            color: white;
+            color: #6b21a8;
             font-size: 1.2rem;
             margin-top: 2rem;
         }
@@ -84,6 +84,10 @@
             margin-bottom: 0.5rem;
         }
 
+        .app-card.dark-tile .app-name {
+            color: #ffffff;
+        }
+
         .app-description {
             color: #666;
             font-size: 0.95rem;
@@ -92,12 +96,20 @@
             margin-bottom: 1rem;
         }
 
+        .app-card.dark-tile .app-description {
+            color: #e0e0e0;
+        }
+
         .app-url {
             color: #667eea;
             font-size: 0.85rem;
             text-decoration: none;
             word-break: break-all;
             margin-top: auto;
+        }
+
+        .app-card.dark-tile .app-url {
+            color: #c7d2fe;
         }
 
         .app-url:hover {
@@ -152,10 +164,14 @@
 
                 applications.forEach(app => {
                     const card = document.createElement('a');
-                    card.className = 'app-card';
+                    card.className = 'app-card dark-tile';
                     card.href = app.url;
                     card.target = '_blank';
                     card.rel = 'noopener noreferrer';
+                    
+                    // Assign a random darker color to each tile
+                    const randomColor = generateRandomDarkColor();
+                    card.style.background = randomColor;
                     
                     card.innerHTML = `
                         <div class="app-name">${escapeHtml(app.name)}</div>
@@ -177,6 +193,18 @@
             const div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
+        }
+
+        function generateRandomDarkColor() {
+            // Generate random RGB values that are darker than the light background
+            // Background is around #e0e7ff to #f3e8ff, so we want colors with lower values
+            // We'll generate colors in the range of 80-180 for each RGB component
+            // This ensures they're darker than the light background (224-243 range)
+            const r = Math.floor(Math.random() * 100) + 80;  // 80-180
+            const g = Math.floor(Math.random() * 100) + 80;  // 80-180
+            const b = Math.floor(Math.random() * 100) + 80;  // 80-180
+            
+            return `rgb(${r}, ${g}, ${b})`;
         }
 
         // Load applications when page loads
