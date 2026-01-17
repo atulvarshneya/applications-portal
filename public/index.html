@@ -112,6 +112,10 @@
             margin-bottom: 1rem;
         }
 
+        .app-card.expanded .app-description {
+            flex-grow: 0;
+        }
+
         .app-card.dark-tile .app-description {
             color: #e0e0e0;
         }
@@ -124,6 +128,9 @@
             padding-top: 1rem;
             border-top: 1px solid rgba(0, 0, 0, 0.1);
             display: none;
+            overflow-y: auto;
+            flex: 1 1 auto;
+            min-height: 0;
         }
 
         .app-card.expanded .app-details {
