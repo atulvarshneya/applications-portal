@@ -35,6 +35,11 @@
       "url": "https://nestjs.com",
       "description": "A progressive Node.js framework for building efficient applications",
       "details": "NestJS is a progressive Node.js framework for building efficient applications. It provides a framework for building web applications and APIs."
-    }
-  ]
+    },
+    {
+      "name": "New Mkt App",
+      "url": "https://google.com",
+      "description": "New mkt app added",
+      "details": "GitHub is a code hosting platform for version control and collaboration. It allows you to manage your code and collaborate with others. Let us make the details text long, it is a code hosting platform for version control and collaboration. It is extreme popular and is used by many people. GitHub is a code hosting platform for version control and collaboration. It allows you to manage your code and collaborate with others. Let me repeat, it is a code hosting platform for version control and collaboration. It is extreme popular and is used by many people."
+    },  ]
 }
